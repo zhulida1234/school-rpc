@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "./protobuf/clazz";
+package school_rpc_service.clazz;
+
+
+message CreateClazzRequest{
+  string name = 1;
+  string no = 2;
+  int32 grade =3;
+}
+
+message CreateClazzResponse{
+  string code = 1;
+  string msg = 2;
+}
+
+service ClazzService{
+  rpc CreateClazz(CreateClazzRequest) returns (CreateClazzResponse){}
+}
