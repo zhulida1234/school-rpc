@@ -3,10 +3,10 @@ package main
 import (
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/urfave/cli/v2"
-	flags2 "github.com/zhulida1234/go-rpc-service/flags"
 	"github.com/zhulida1234/school-rpc/common/opio"
 	"github.com/zhulida1234/school-rpc/config"
 	"github.com/zhulida1234/school-rpc/database"
+	flags2 "github.com/zhulida1234/school-rpc/flags"
 )
 
 func runMigrations(ctx *cli.Context) error {

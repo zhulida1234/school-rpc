@@ -7,8 +7,7 @@ LDFLAGS := -ldflags "$(LDFLAGSSTRING)"
 
 school-rpc:
 	./bin/compile.sh
-	env GO111MODULE=on go build -v $(LDFLAGS) ./cmd
-.PHONY: school-rpc
+	env GO111MODULE=on go build -v -o school-rpc $(LDFLAGS) ./cmd
 
 clean:
 	rm school-rpc

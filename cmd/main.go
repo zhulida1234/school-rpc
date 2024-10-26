@@ -15,11 +15,12 @@ var (
 func main() {
 	log.SetDefault(log.NewLogger(log.NewTerminalHandlerWithLevel(os.Stderr, log.LevelInfo, true)))
 	app := NewCli(GitCommit, GitData)
+	log.Info("开始执行app")
 	// 这个方法的作用是否是增加一个信号中断处理器，用于通知给上下文
 	ctx := opio.WithInterruptBlocker(context.Background())
 	// 真正执行的是command.go Run方法
 	if err := app.RunContext(ctx, os.Args); err != nil {
-		log.Error("Application failed")
+		log.Error("Application failed", err)
 		os.Exit(1)
 	}
 }

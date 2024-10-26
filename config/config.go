@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/urfave/cli/v2"
-	"github.com/zhulida1234/go-rpc-service/flags"
+	"github.com/zhulida1234/school-rpc/flags"
 )
 
 type DBConfig struct {
@@ -44,4 +44,22 @@ func NewConfig(ctx *cli.Context) Config {
 			Port: ctx.Int(flags.MetricsPortFlag.Name),
 		},
 	}
+	//return Config{
+	//	Migrations: "./migrations",
+	//	Database: DBConfig{
+	//		Host:     "127.0.0.1",
+	//		Port:     5432,
+	//		Name:     "school",
+	//		User:     "zhulida",
+	//		Password: "",
+	//	},
+	//	RpcServer: ServerConfig{
+	//		Host: "127.0.0.1",
+	//		Port: 8980,
+	//	},
+	//	MetricsServer: ServerConfig{
+	//		Host: "127.0.0.1",
+	//		Port: 8990,
+	//	},
+	//}
 }
