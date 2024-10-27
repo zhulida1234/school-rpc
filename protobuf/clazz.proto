@@ -7,7 +7,7 @@ package school_rpc_service.clazz;
 message CreateClazzRequest{
   string name = 1;
   string no = 2;
-  int32 grade =3;
+  uint32 grade =3;
 }
 
 message CreateClazzResponse{

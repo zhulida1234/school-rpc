@@ -25,9 +25,17 @@ type RpcServer struct {
 	stoped atomic.Bool
 }
 
-func (s *RpcServer) Stop() error {
+func (s *RpcServer) Stop(ctx context.Context) error {
 	s.stoped.Store(true)
 	return nil
+}
+
+func (s *RpcServer) Stopped() bool {
+	return false
+}
+
+func (s *RpcServer) GetRpcSchoolDB() *database.SchoolDB {
+	return s.db.SchoolDB
 }
 
 func NewRpcServer(config *RpcServerConfig, db *database.DB) (*RpcServer, error) {
@@ -39,7 +47,7 @@ func NewRpcServer(config *RpcServerConfig, db *database.DB) (*RpcServer, error) 
 
 func (s *RpcServer) Start(ctx context.Context) error {
 	go func(s *RpcServer) {
-		addr := fmt.Sprintf("%s:%d", s.GrpcHost, s.GrpcPort)
+		addr := fmt.Sprintf("%s:%s", s.GrpcHost, s.GrpcPort)
 		fmt.Println("start rpc server", "addr", addr)
 		listener, err := net.Listen("tcp", addr)
 		if err != nil {

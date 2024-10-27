@@ -14,7 +14,7 @@ import (
 type DB struct {
 	gorm *gorm.DB
 
-	schoolDB *SchoolDB
+	SchoolDB *SchoolDB
 }
 
 func NewDB(ctx context.Context, dbConf config.DBConfig) (*DB, error) {
@@ -41,7 +41,7 @@ func NewDB(ctx context.Context, dbConf config.DBConfig) (*DB, error) {
 	}
 	return &DB{
 		gorm:     gorm,
-		schoolDB: NewSchoolDB(gorm),
+		SchoolDB: NewSchoolDB(gorm),
 	}, nil
 }
 
