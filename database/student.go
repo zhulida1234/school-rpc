@@ -24,12 +24,12 @@ func (schoolDB *SchoolDB) FindStudentList(pageSize uint32, pageNo uint32) ([]Stu
 	return students, nil
 }
 
-func (schoolDB *SchoolDB) CreateStudent(student *Student) error {
-	err := schoolDB.gorm.Create(student).Error
-	if err != nil {
-		return err
+func (schoolDB *SchoolDB) CreateStudent(student *Student) (*Student, error) {
+	result := schoolDB.gorm.Create(student)
+	if result.Error != nil {
+		return nil, result.Error
 	}
-	return nil
+	return student, nil
 }
 
 func (schoolDB *SchoolDB) UpdateStudent(student *Student) error {

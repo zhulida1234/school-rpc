@@ -47,6 +47,19 @@ var (
 		Required: true,
 	}
 
+	HttpHostFlag = &cli.StringFlag{
+		Name:     "http-host",
+		Usage:    "The host of the rest api",
+		EnvVars:  prefixEnvVars("HTTP_HOST"),
+		Required: true,
+	}
+	HttpPortFlag = &cli.IntFlag{
+		Name:     "http-port",
+		Usage:    "The port of the rest api",
+		EnvVars:  prefixEnvVars("HTTP_PORT"),
+		Required: true,
+	}
+
 	// DbHostFlag Database
 	DbHostFlag = &cli.StringFlag{
 		Name:     "master-db-host",
@@ -86,6 +99,8 @@ var requireFlags = []cli.Flag{
 	RpcPortFlag,
 	MetricsHostFlag,
 	MetricsPortFlag,
+	HttpHostFlag,
+	HttpPortFlag,
 
 	DbHostFlag,
 	DbPortFlag,

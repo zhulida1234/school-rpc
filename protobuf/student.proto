@@ -37,7 +37,7 @@ message StudentListResponse {
 message CreateStudentResponse {
   string code = 1;
   string msg = 2;
-  int64 id = 3;
+  uint64 id = 3;
 }
 
 message UpdateStudentResponse {

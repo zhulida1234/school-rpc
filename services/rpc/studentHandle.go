@@ -1,7 +1,8 @@
-package services
+package rpc
 
 import (
 	"context"
+	"fmt"
 	"github.com/zhulida1234/school-rpc/database"
 	"github.com/zhulida1234/school-rpc/protobuf/student"
 	"strconv"
@@ -36,7 +37,7 @@ func (s *RpcServer) StudentList(ctx context.Context, request *student.StudentLis
 func (s *RpcServer) CreateStudent(ctx context.Context, request *student.CreateStudentRequest) (*student.CreateStudentResponse, error) {
 	schoolDB := s.GetRpcSchoolDB()
 
-	err := schoolDB.CreateStudent(&database.Student{
+	res, err := schoolDB.CreateStudent(&database.Student{
 		Name:      request.Name,
 		Age:       request.Age,
 		Gender:    request.Gender,
@@ -44,7 +45,7 @@ func (s *RpcServer) CreateStudent(ctx context.Context, request *student.CreateSt
 		ClassName: request.ClassName,
 		Grade:     request.Grade,
 	})
-
+	fmt.Print(res.Id)
 	if err != nil {
 		return &student.CreateStudentResponse{
 			Code: strconv.Itoa(500),

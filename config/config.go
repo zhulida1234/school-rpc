@@ -22,6 +22,7 @@ type Config struct {
 	Migrations    string
 	Database      DBConfig
 	RpcServer     ServerConfig
+	HttpServer    ServerConfig
 	MetricsServer ServerConfig
 }
 
@@ -38,6 +39,10 @@ func NewConfig(ctx *cli.Context) Config {
 		RpcServer: ServerConfig{
 			Host: ctx.String(flags.RpcHostFlag.Name),
 			Port: ctx.Int(flags.RpcPortFlag.Name),
+		},
+		HttpServer: ServerConfig{
+			Host: ctx.String(flags.HttpHostFlag.Name),
+			Port: ctx.Int(flags.HttpPortFlag.Name),
 		},
 		MetricsServer: ServerConfig{
 			Host: ctx.String(flags.MetricsHostFlag.Name),

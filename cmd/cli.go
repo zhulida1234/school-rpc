@@ -11,14 +11,15 @@ import (
 	"github.com/zhulida1234/school-rpc/config"
 	"github.com/zhulida1234/school-rpc/database"
 	flags2 "github.com/zhulida1234/school-rpc/flags"
-	"github.com/zhulida1234/school-rpc/services"
+	"github.com/zhulida1234/school-rpc/services/rest"
+	"github.com/zhulida1234/school-rpc/services/rpc"
 	"strconv"
 )
 
 func runRpc(ctx *cli.Context, causeFunc context.CancelCauseFunc) (cliapp.Lifecycle, error) {
 	fmt.Println("running grpc server...")
 	cfg := config.NewConfig(ctx)
-	grpcServerCfg := &services.RpcServerConfig{
+	grpcServerCfg := &rpc.RpcServerConfig{
 		GrpcHost: cfg.RpcServer.Host,
 		GrpcPort: strconv.Itoa(cfg.RpcServer.Port),
 	}
@@ -27,7 +28,13 @@ func runRpc(ctx *cli.Context, causeFunc context.CancelCauseFunc) (cliapp.Lifecyc
 		log.Error("failed to connect to database", "err", err)
 		return nil, err
 	}
-	return services.NewRpcServer(grpcServerCfg, db)
+	return rpc.NewRpcServer(grpcServerCfg, db)
+}
+
+func runRestApi(ctx *cli.Context, shutdown context.CancelCauseFunc) (cliapp.Lifecycle, error) {
+	log.Info("running api...")
+	cfg := config.NewConfig(ctx)
+	return rest.NewAPI(ctx.Context, &cfg)
 }
 
 func NewCli(GitCommit string, GitData string) *cli.App {
@@ -37,6 +44,12 @@ func NewCli(GitCommit string, GitData string) *cli.App {
 		Description:          "An exchange school services with rpc and rest api server",
 		EnableBashCompletion: true,
 		Commands: []*cli.Command{
+			{
+				Name:        "api",
+				Flags:       flags,
+				Description: "Run api services",
+				Action:      cliapp.LifecycleCmd(runRestApi),
+			},
 			{
 				Name:        "rpc",
 				Flags:       flags,
